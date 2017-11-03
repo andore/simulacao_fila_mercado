@@ -39,10 +39,9 @@ void setup() {
   }
    
   fill(255,150,0);
-  //ellipse(caixas.get(0).x + caixas.get(0).tX/2 + 20, caixas.get(0).y, 20,20);
+
   cliente.desenha();
-  cliente2.desenha();
-  
+  cliente2.desenha();  
 }
 
 void draw() { 

@@ -7,7 +7,7 @@ void setup() {
   caixas = new ArrayList<Caixa>();
   
   int distCaixa = 70;
-  int qtdCaixas = 6;
+  int qtdCaixas = 7;
   
   for(int i=0; i<qtdCaixas; i++)
   {
@@ -17,7 +17,7 @@ void setup() {
      caixas.add(c);
   }
   
-  background(51);
+  background(80);
   
   caixas.get(0).isFuncionando = true;
   caixas.get(0).tempoAtendimento = 5000;

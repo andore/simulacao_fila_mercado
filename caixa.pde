@@ -27,7 +27,7 @@ public class Caixa implements ActionListener
   {
     rectMode(CENTER);
     
-    fill(255);
+    fill(44);
     rect(x, y, tX, tY);  
   }
  
@@ -41,7 +41,7 @@ public class Caixa implements ActionListener
         cor=0;
       }
       
-      fill(255,cor,cor);
+      fill(cor,cor,255);
       rect(x + tX/10, y, larguraAtendente, alturaAtendente);
     }
     else if(isFuncionando)

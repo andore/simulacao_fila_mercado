@@ -7,7 +7,7 @@ void setup() {
   caixas = new ArrayList<Caixa>();
   
   int distCaixa = 70;
-  int qtdCaixas = 5;
+  int qtdCaixas = 6;
   
   for(int i=0; i<qtdCaixas; i++)
   {

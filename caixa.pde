@@ -47,7 +47,7 @@ public class Caixa implements ActionListener
     else if(isFuncionando)
     {
       cor=0;
-      fill(255,0,0);
+      fill(70,255,70);
       rect(x + tX/10, y, larguraAtendente, alturaAtendente);
     }
     else if(!isFuncionando)

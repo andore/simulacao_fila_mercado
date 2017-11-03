@@ -1,10 +1,12 @@
 import java.util.List;
 List<Caixa> caixas;
+List<Cliente> clientes;
 
 void setup() {
   size(1024, 768); 
   noStroke();
   caixas = new ArrayList<Caixa>();
+  clientes = new ArrayList<Cliente>();
   
   int distCaixa = 70;
   int qtdCaixas = 7;
@@ -17,6 +19,14 @@ void setup() {
      caixas.add(c);
   }
   
+  Cliente cliente = new Cliente();
+  cliente.x = caixas.get(0).x + caixas.get(0).tX/2 + cliente.tX;
+  cliente.y = caixas.get(0).y;
+  
+  Cliente cliente2 = new Cliente();
+  cliente2.x = caixas.get(2).x + caixas.get(2).tX/2 + cliente.tX;
+  cliente2.y = caixas.get(2).y;
+  
   background(80);
   
   caixas.get(0).isFuncionando = true;
@@ -28,8 +38,10 @@ void setup() {
     c.desenhaCaixa();
   }
    
-  fill(0,255,0);
-  ellipse(caixas.get(0).x + caixas.get(0).tX/2 + 20, caixas.get(0).y, 20,20);
+  fill(255,150,0);
+  //ellipse(caixas.get(0).x + caixas.get(0).tX/2 + 20, caixas.get(0).y, 20,20);
+  cliente.desenha();
+  cliente2.desenha();
   
 }
 

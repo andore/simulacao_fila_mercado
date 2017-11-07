@@ -1,64 +1,84 @@
-import java.util.List;
+import java.util.List; //<>// //<>//
+import java.util.Queue;
+import java.util.LinkedList;
 List<Caixa> caixas;
 List<Cliente> clientes;
 
+int qtdCaixas = 3;
+int qtdClientesIni = 3;
+
+int distCaixa = 60;
+int vel = 1;
+int incX;
+int incY;
+int incZ = height/10;
+int distCaixaClient = 5;
+int atual = 0;
+float posC=0;
+
 void setup() {
-  size(1024, 768); 
+  
+  /****** TEMPO DE CHEGADA DE CLIENTE EM MILISEGUNDOS *******/
+  int tempoChegadaCliente = 1000;
+  
+  size(800, 600); 
   noStroke();
   caixas = new ArrayList<Caixa>();
   clientes = new ArrayList<Cliente>();
-  
-  int distCaixa = 70;
-  int qtdCaixas = 7;
-  
-  for(int i=0; i<qtdCaixas; i++)
-  {
-     Caixa c = new Caixa();
-     c.x = (height/qtdCaixas) + (c.tX * i) + (distCaixa * i);
-     c.y = (width/4);
-     caixas.add(c);
-  }
-  
-  Cliente cliente = new Cliente();
-  cliente.x = caixas.get(0).x + caixas.get(0).tX/2 + cliente.tX;
-  cliente.y = caixas.get(0).y;
-  
-  Cliente cliente2 = new Cliente();
-  cliente2.x = caixas.get(2).x + caixas.get(2).tX/2 + cliente.tX;
-  cliente2.y = caixas.get(2).y;
-  
-  background(80);
-  
-  caixas.get(0).isFuncionando = true;
-  caixas.get(0).tempoAtendimento = 5000;
-  caixas.get(0).atende();
-   
-  for(Caixa c: caixas)
-  {
-    c.desenhaCaixa();
-  }
-   
-  fill(255,150,0);
+  frameRate(60);
 
-  cliente.desenha();
-  cliente2.desenha();  
-}
+  for (int i=0; i<qtdCaixas; i++)
+  {
+    Caixa c = new Caixa();
+    
+    /****** TEMPOS DE ATENDIMENTO EM MILISEGUNDOS ******/
+    c.mediaTempoAtendimento=2000;
+    c.desvioPadraoTempoAtendimento=4000;
+    
+    c.x = (height/qtdCaixas) + (c.tX * i) + (distCaixa * i);
+    c.y = (width/4);
+    caixas.add(c);
+  }
+  
+  for (int i=0; i<qtdClientesIni; i++)
+  {
+    Cliente cliente = new Cliente();
+    cliente.x = posC;
+    cliente.y = height - cliente.tX;
+    clientes.add(cliente);
+    posC = posC + cliente.tX;
+  }
+  
+  GeraEventoChegadaCliente gerador = new GeraEventoChegadaCliente();
+  gerador.inicia(tempoChegadaCliente);
+  
+} //<>//
 
 void draw() { 
-  for(Caixa c: caixas)
+  background(150);
+
+  for (Caixa c : caixas)
+  {
+    c.desenhaCaixa();
+    c.atende();
+  }
+
+  for (Caixa c : caixas)
   {
     c.desenhaAtendente();
   } 
-  caixas.get(0).atende();
-}
-
-void mousePressed() {
-    for(Caixa c: caixas)
+  
+ 
+  try
+  {
+    for (Cliente c : clientes)
     {
-      if(mouseX > (c.x - c.tX/2) && mouseX < (c.x + c.tX/2) &&
-         mouseY > (c.y - c.tY/2) && mouseY < (c.y + c.tY/2))
-      {
-        c.isFuncionando  = !c.isFuncionando; 
-      }
+      c.desenha();
     }
+  }catch(Exception e)
+  {
+    System.out.println("Erro ao desenhar");
+  } 
+  andaFora();
+  distribuiClientes();
 }

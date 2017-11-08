@@ -25,13 +25,23 @@ void distribuiClientes()
     
     int menor=clientes.size();
     int indice=0;
+    int qtdCliente;
     for(int i=0; i<caixas.size(); i++)
     {
-        if(caixas.get(i).isFuncionando && 
-            caixas.get(i).filaCliente.size() <= menor)
+        if(caixas.get(i).isFuncionando)
         {
-          menor = caixas.get(i).filaCliente.size();
-          indice = i;
+          qtdCliente = caixas.get(i).filaCliente.size();
+          
+          if(caixas.get(i).isAtendendo)
+          {
+            qtdCliente++;
+          }
+          
+          if(qtdCliente<= menor)
+          {
+            menor = caixas.get(i).filaCliente.size();
+            indice = i;
+          }    
         }
     }
     

@@ -4,16 +4,21 @@ import javax.swing.Timer;
 
 public class Caixa extends AbstractObjeto implements ActionListener
 {
+  int id;
   Timer t;
   int cor=0;
-  boolean isFuncionando;
+  boolean isFuncionando = true;
   boolean isAtendendo;
   int tempoAtendimento;
-  int mediaTempoAtendimento;
-  int desvioPadraoTempoAtendimento;
   
   int larguraAtendente = 20;
   int alturaAtendente = 15;
+  int qtdTotalAtendimento;
+  int qtdTotalTempoAtendimento ;
+  int mediaTempoAtendimento;
+  int tempoOciosidade;
+  int tempoFilaVazia;
+  int tempoIni;
   
   LinkedList <Cliente> filaCliente = new LinkedList();
   private Cliente cAtual;
@@ -21,7 +26,8 @@ public class Caixa extends AbstractObjeto implements ActionListener
   public Caixa()
   {
     tX = 70;
-    tY = 100;  
+    tY = 100;
+    tempoIni = millis();
   }
   
   void desenhaCaixa3D()
@@ -64,6 +70,9 @@ public class Caixa extends AbstractObjeto implements ActionListener
     rectMode(CENTER);
     fill(80);
     rect(x, y, tX, tY);
+    
+     textSize(11);
+     text("\nCAIXA " + id + "\nMEDIA = " + (getMediaAtendimento()/60)/1000 + " min\nTOT ATENDIMENTOS = " + qtdTotalAtendimento + "\nTEMPO OCIOSO = " + tempoOciosidade/1000 + " (" +getPercentagemOciosa()+ "%)", x - tX/2, y + tY/2);
   }
  
   void desenhaAtendente()
@@ -102,7 +111,6 @@ public class Caixa extends AbstractObjeto implements ActionListener
       filaCliente.remove(cAtual);
       cAtual = null;
     }
-    
 
     if(cAtual!=null)
     {
@@ -114,8 +122,17 @@ public class Caixa extends AbstractObjeto implements ActionListener
       
       if(!isAtendendo && isFuncionando && !cAtual.isAndaX && !cAtual.isAndaY && !cAtual.isAtendido)
       {
+        
+        System.out.println("\n");
+        System.out.println("CAIXA " + id);
+        
+        
+        this.qtdTotalAtendimento ++;
+        this.tempoAtendimento = (int)(getTaxaAtendimento(lambdaAtendimento, this)); 
+        this.qtdTotalTempoAtendimento += tempoAtendimento;
+          
         isAtendendo = true;
-        t = new Timer((int)random(mediaTempoAtendimento, desvioPadraoTempoAtendimento), this);
+        t = new Timer(tempoAtendimento/multiplicaTempo, this);
         t.setRepeats(false);
         t.start();
       }
@@ -127,17 +144,25 @@ public class Caixa extends AbstractObjeto implements ActionListener
     filaCliente.add(c);
     c.atendente = this;
     c.x = x;
-    c.y = getBordaInferior() + (filaCliente.size() * (distCaixaClient + c.tX)) + 40;
+    c.y = getBordaInferior() + (filaCliente.size() * (distCaixaClient + c.tX)) + 60;
   }
   
   public Cliente getProximoCliente()
   {
-      if(clientes.isEmpty())
+      if(filaCliente.isEmpty() && tempoFilaVazia==0 )
       {
+        tempoFilaVazia = millis();
         return null;
       }
       else
       {
+        if(tempoFilaVazia > 0)
+        {
+          int tempo = millis() - tempoFilaVazia;
+          tempoOciosoTotal += tempo;
+          tempoOciosidade += tempo;
+          tempoFilaVazia=0;
+        }
         for(int i=0; i<filaCliente.size(); i++)
         {
            if(!filaCliente.get(i).isEmAtendimento)
@@ -152,6 +177,22 @@ public class Caixa extends AbstractObjeto implements ActionListener
   @Override
   public void actionPerformed(ActionEvent e) {
     isAtendendo = false;
-    cAtual.isAtendido = true;
+    cAtual.atendido();
   }
+  
+  private float getMediaAtendimento()
+  {
+    if(qtdTotalAtendimento == 0)
+    {
+      return 0;
+    }
+    
+    return (qtdTotalTempoAtendimento/qtdTotalAtendimento);
+  }
+ 
+ int getPercentagemOciosa()
+ {
+   int tempoTotal = millis() - tempoIni;  
+   return (100*tempoOciosidade)/tempoTotal;
+ }
 }

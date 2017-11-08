@@ -88,7 +88,7 @@ void draw() {
     }
   }catch(Exception e)
   {
-    System.out.println("Erro ao desenhar");
+    
   } 
   andaFora();
   distribuiClientes();

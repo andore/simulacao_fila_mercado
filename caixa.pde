@@ -123,8 +123,8 @@ public class Caixa extends AbstractObjeto implements ActionListener
       if(!isAtendendo && isFuncionando && !cAtual.isAndaX && !cAtual.isAndaY && !cAtual.isAtendido)
       {
         
-        System.out.println("\n");
-        System.out.println("CAIXA " + id);
+        //System.out.println("\n");
+        //System.out.println("CAIXA " + id);
         
         
         this.qtdTotalAtendimento ++;

@@ -8,7 +8,7 @@ void loganformacoes()
   float maiorTempCliSit = ((maiorTempoClienteSistema*multiplicaTempo)/1000)/60;
   int qtdClienteAtendido = quantidadeClientesAtendidos;
   
-  System.out.println("\n\nINFO " + count + "," + qtdClienteSist + "," + medTempCliSist + "," + ocisos + "," + maiorTempCliSit + "," + qtdClienteAtendido);
+  System.out.println(count + "," + qtdClienteSist + "," + medTempCliSist + "," + ocisos + "," + maiorTempCliSit + "," + qtdClienteAtendido);
   
   //text("Quantidade de Clientes no sistema: " + clientes.size(), 10, 30);
   //text("Media tempo cliente permanece no sistema: " + (((calculaMediaTempoClientes()*multiplicaTempo)/1000)/60) + " minutos", 10, 50);
@@ -22,6 +22,7 @@ public class LogaInf implements ActionListener
 
   public void start(int intervalo)
   {
+    System.out.println("\nIndice,Qtd Client Sist,Temp Med Client Sist (min),Ocioso (%),Maior Temp Atend (min),Qtd Clien Atend");
     Timer time = new Timer (intervalo, this);
     time.start();
   }

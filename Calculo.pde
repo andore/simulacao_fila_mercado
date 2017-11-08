@@ -32,15 +32,15 @@ public double getTaxaAtendimento(float minutos, Caixa c)
   
   if(c.id == 0)
   {
-    System.out.println("CAIXA T QUANTIDADE TOTAL CLIENTE: " + quantidadeClientesAtendidos);
+    //System.out.println("CAIXA T QUANTIDADE TOTAL CLIENTE: " + quantidadeClientesAtendidos);
   }
   
-  System.out.println("CAIXA " + c.id + " LAMBDA: " + lambda + "(segundos) POISSON: " + poisson + "(segundos)");
-  System.out.println("CAIXA " + c.id + " TEMPO ATENDIMENTO:" + tempoAtendimento/60 + " minutos ou " + tempoAtendimento + " segundos" );
-  System.out.println("CAIXA " + c.id +" MEDIA ATENDIMENTO: " + (c.getMediaAtendimento()/60)/1000 + " minutos");
-  System.out.println("CAIXA " + c.id + " TEMPO OCIOSO: " + c.tempoOciosidade + "ms (" +c.getPercentagemOciosa()+ "%)");
-  System.out.println("CAIXA " + c.id + " QTD TOTAL ATENDIMENTOS: " + c.qtdTotalAtendimento + " clientes");  
-  System.out.print("CAIXA P " + c.id + "," + lambda + "," + poisson + "," + tempoAtendimento/60 + "," + (c.getMediaAtendimento()/60)/1000 + "," + c.tempoOciosidade + "," + c.getPercentagemOciosa() + "," + c.qtdTotalAtendimento);
+  //System.out.println("CAIXA " + c.id + " LAMBDA: " + lambda + "(segundos) POISSON: " + poisson + "(segundos)");
+  //System.out.println("CAIXA " + c.id + " TEMPO ATENDIMENTO:" + tempoAtendimento/60 + " minutos ou " + tempoAtendimento + " segundos" );
+  //System.out.println("CAIXA " + c.id +" MEDIA ATENDIMENTO: " + (c.getMediaAtendimento()/60)/1000 + " minutos");
+  //System.out.println("CAIXA " + c.id + " TEMPO OCIOSO: " + c.tempoOciosidade + "ms (" +c.getPercentagemOciosa()+ "%)");
+  //System.out.println("CAIXA " + c.id + " QTD TOTAL ATENDIMENTOS: " + c.qtdTotalAtendimento + " clientes");  
+  //System.out.print("CAIXA P " + c.id + "," + lambda + "," + poisson + "," + tempoAtendimento/60 + "," + (c.getMediaAtendimento()/60)/1000 + "," + c.tempoOciosidade + "," + c.getPercentagemOciosa() + "," + c.qtdTotalAtendimento);
 
   return tempoAtendimento * 1000;
 } //<>//

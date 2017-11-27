@@ -28,7 +28,7 @@ public class Cliente extends AbstractObjeto
   {
     pushMatrix();
     translate(x, y, 0);
-    fill(200,200,200);
+    fill(corR,corG,corB);
     sphere(tX);
     popMatrix();
     

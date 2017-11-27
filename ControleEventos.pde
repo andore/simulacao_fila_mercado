@@ -1,5 +1,5 @@
 void mouseWheel(MouseEvent event) {
-  incZ += event.getCount();
+  zoom += event.getCount()*40;
 }
 
 void mouseDragged()

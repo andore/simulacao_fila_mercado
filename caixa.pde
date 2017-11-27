@@ -40,6 +40,9 @@ public class Caixa extends AbstractObjeto implements ActionListener
   
   void desenhaAtendente3D()
   {
+    fill(80);
+    textSize(11);
+    text("\nCAIXA " + id + "\nMEDIA = " + (getMediaAtendimento()/60)/1000 + " min\nTOT ATENDIMENTOS = " + qtdTotalAtendimento + "\nTEMPO OCIOSO = " + tempoOciosidade/1000 + " (" +getPercentagemOciosa()+ "%)", x - tX/2, y + tY/2);
     pushMatrix();
     translate(x,y,100);
     if(isAtendendo)

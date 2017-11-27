@@ -7,7 +7,7 @@ List<Cliente> clientes;
 int qtdCaixas = 3;
 int qtdClientesIni = qtdCaixas;
 
-int distCaixa = 100;
+int distCaixa = 200;
 
 int incX;
 int incY;
@@ -24,6 +24,10 @@ float maiorTempoClienteSistema;
 int tempoOciosoTotal;
 int tempoInicio;
 
+float cameraY = height/2;
+float cameraX = width/2;
+float zoom;
+
 int vel = 1;
 void setup() {
   
@@ -31,11 +35,11 @@ void setup() {
   int tempoChegadaCliente = (int) (getTaxaCliente(3600, lambdaCliente) * 1000)/multiplicaTempo;
   System.out.println("Tempo acelerado " + multiplicaTempo + "x");
   
-  size(800, 600); 
+  size(800, 600, P3D); 
   noStroke();
   caixas = new ArrayList<Caixa>();
   clientes = new ArrayList<Cliente>();
-  frameRate(60 * multiplicaTempo);
+  frameRate(60 * multiplicaTempo/2 );
 
   for (int i=0; i<qtdCaixas; i++)
   { 
@@ -70,13 +74,13 @@ void draw() {
 
   for (Caixa c : caixas)
   {
-    c.desenhaCaixa();
+    c.desenhaCaixa3D();
     c.atende();
   }
 
   for (Caixa c : caixas)
   {
-    c.desenhaAtendente();
+    c.desenhaAtendente3D();
   } 
   
  
@@ -84,7 +88,7 @@ void draw() {
   {
     for (Cliente c : clientes)
     {
-      c.desenha();
+      c.desenha3D();
     }
   }catch(Exception e)
   {
@@ -101,5 +105,12 @@ void draw() {
   text("Tempo Ocioso do sistema:" + (float(tempoOciosoTotal)/1000) + " segundos (" + getPercentagemOciosoTotal() + "%)", 10, 110);
  
   fill(0, 102, 153);
+  if(mousePressed){
+    cameraX += pmouseX - mouseX;
+    cameraY += pmouseY - mouseY;
+  }
+  
+   camera(cameraX,cameraY, (height/2) / tan(PI/6) + zoom, cameraX, height/2, 0, 0, 1, 0);
+  
   
 }
